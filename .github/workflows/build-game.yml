@@ -13,43 +13,19 @@ jobs:
         shell: bash
 
     steps:
-      - name: Make git happy
-        run: git config --global --replace-all safe.directory $GITHUB_WORKSPACE
-
-      - name: Get checkout token
-        uses: actions/create-github-app-token@v1
-        id: app_token
-        with:
-          app-id: ${{ vars.APP_ID }}
-          private-key: ${{ secrets.APP_PEM }}
-          owner: ${{ github.repository_owner }}
-
       - name: Checkout repo
-        uses: funkincrew/ci-checkout@v7.3.3
+        uses: actions/checkout@v4
         with:
-          submodules: 'recursive'
-          token: ${{ steps.app_token.outputs.token }}
-          persist-credentials: false
-          submodule-aliases: |
-            https://github.com/FunkinCrew/Funkin.assets > https://github.com/FunkinCrew/Funkin-assets-secret
-            https://github.com/FunkinCrew/Funkin.art > https://github.com/FunkinCrew/Funkin-art-secret
+          submodules: recursive
 
       - name: Setup Haxe
         uses: ./.github/actions/setup-haxe
-        with:
-          gh-token: ${{ steps.app_token.outputs.token }}
 
       - name: Setup HXCPP
         run: |
           cd .haxelib/hxcpp/git/tools/hxcpp
           haxe compile.hxml
           cd ../../../../..
-
-      - name: Populate .env
-        run: |
-          touch .env
-          echo API_NG_APP_ID=${{ secrets.API_NG_APP_ID }} >> .env
-          echo API_NG_ENC_KEY=${{ secrets.API_NG_ENC_KEY }} >> .env
 
       - name: Build Windows DEBUG
         run: |
