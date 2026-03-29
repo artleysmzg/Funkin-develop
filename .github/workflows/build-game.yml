@@ -23,6 +23,7 @@ jobs:
 
       - name: haxelib
         run: |
+          rm -rf D:\a\_temp/hxcpp_cache
           haxelib fixrepo --global
 
           haxelib install hxcpp
