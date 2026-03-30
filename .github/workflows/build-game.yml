@@ -18,6 +18,9 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Setup Haxe
+        uses: ./.github/actions/setup-haxe
+        
       - name: haxelib
         run: |
           rm -rf D:\a\_temp/hxcpp_cache
@@ -31,9 +34,6 @@ jobs:
           haxelib install crypto
           
           haxelib list
-
-      - name: Setup Haxe
-        uses: ./.github/actions/setup-haxe
 
       - name: Build Windows
         run: |
