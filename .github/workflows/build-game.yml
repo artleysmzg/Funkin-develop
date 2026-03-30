@@ -18,19 +18,22 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Setup Haxe
-        uses: ./.github/actions/setup-haxe
-
       - name: haxelib
         run: |
           rm -rf D:\a\_temp/hxcpp_cache
           haxelib fixrepo --global
-
+          haxelib remove hxcpp
+          haxelib remove haxelib
+          haxelib remove crypto
+          
           haxelib install hxcpp
           haxelib install haxelib
           haxelib install crypto
-
+          
           haxelib list
+
+      - name: Setup Haxe
+        uses: ./.github/actions/setup-haxe
 
       - name: Build Windows
         run: |
