@@ -48,9 +48,10 @@ jobs:
           haxelib git openfl https://github.com/FunkinCrew/openfl
           haxelib set lime git
           haxelib set openfl git
-          
-          haxelib run lime setup
 
+          haxelib run lime setup
+          haxelib run lime rebuild windows
+          
       - name: Build 
         env:
           HAXEPATH: C:\hostedtoolcache\windows\haxe\4.3.6\x64
