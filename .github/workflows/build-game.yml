@@ -28,11 +28,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-haxelib-
 
-      - name: Install libs and build the game
+      - name: Install libs
         shell: cmd
         run: |
           haxelib setup C:\haxelib
           build/windows.bat
+
+      - name: Build 
+        shell: cmd
+        run: |
+          lime build windows
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
