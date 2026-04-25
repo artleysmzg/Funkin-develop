@@ -17,8 +17,13 @@ jobs:
         with:
           haxe-version: 4.3.6
           
-      - name: Set HAXEPATH
-        run: echo "HAXEPATH=$(dirname $(which haxe))" >> $GITHUB_ENV
+      - name: Debug Haxe path
+        run: which haxe
+      
+      - name: Force HAXEPATH
+        run: |
+          echo "HAXEPATH=$(dirname $(which haxe))" >> $GITHUB_ENV
+          echo "Haxe path set"
 
       - name: Cache Haxelib
         uses: actions/cache@v4
