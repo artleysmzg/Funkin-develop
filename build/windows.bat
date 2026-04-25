@@ -7,7 +7,6 @@ haxelib run hmm setup
 hmm install
 
 haxelib install lime
-haxelib run lime setup
 
 haxelib install flixel
 haxelib install flixel-addons
@@ -20,6 +19,7 @@ haxelib install jsonpatch
 haxelib install thx.core
 haxelib install thx.semver
 
+haxelib install hxp
 haxelib install hxcpp
 haxelib install hxvlc
 haxelib install hxdiscord_rpc
@@ -29,5 +29,7 @@ haxelib install newgrounds
 haxelib install polymod
 
 haxelib git funkin.vis https://github.com/FunkinCrew/funkVis
+
+haxelib run lime setup
 
 pause
