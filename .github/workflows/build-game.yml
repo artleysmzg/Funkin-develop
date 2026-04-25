@@ -33,7 +33,6 @@ jobs:
         run: |
           haxelib setup C:\haxelib
           build/windows.bat
-          haxelib install hxp
 
       - name: Build 
         shell: cmd
