@@ -23,5 +23,5 @@ haxelib install newgrounds
 
 lime rebuild windows
 lime rebuild windows -debug
-lime test windows
+lime build windows
 pause
