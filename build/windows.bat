@@ -31,6 +31,4 @@ haxelib install polymod
 haxelib git funkin.vis https://github.com/FunkinCrew/funkVis
 
 lime rebuild windows
-lime build windows
-
 pause
