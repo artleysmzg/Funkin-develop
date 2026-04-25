@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Setup Haxe + Haxelib
         uses: krdlab/setup-haxe@v1
@@ -28,6 +30,7 @@ jobs:
             ${{ runner.os }}-haxelib-
 
       - name: Install libs
+        shell: cmd
         env:
           HXCPP_COMPILE_FLAGS: /std:c++20
           HAXEPATH: C:\hostedtoolcache\windows\haxe\4.3.6\x64
@@ -48,16 +51,22 @@ jobs:
           haxelib set openfl git
 
           haxelib run lime setup
-          haxelib run lime rebuild windows -Dcpp20
-          
-      - name: Build 
+
+      - name: Rebuild Lime (Native Libraries)
+        shell: cmd
         env:
-          HXCPP_COMPILE_FLAGS: /std:c++20
-          HAXEPATH: C:\hostedtoolcache\windows\haxe\4.3.6\x64
+          HXCPP_CPP20: "1" 
+          HXCPP_COMPILE_FLAGS: "/std:c++20"
         run: |
-          echo $env:HAXEPATH
-          haxelib list
-          haxelib run lime build windows -Dcpp20
+          haxelib run lime rebuild windows -v
+          
+      - name: Build Game
+        shell: cmd
+        env:
+          HXCPP_CPP20: "1"
+          HXCPP_COMPILE_FLAGS: "/std:c++20"
+        run: |
+          haxelib run lime build windows
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
