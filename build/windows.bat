@@ -2,8 +2,8 @@
 
 git submodule update --init --recursive
 
-haxelib --global install hmm
-haxelib --global run hmm setup
+haxelib install hmm
+haxelib run hmm setup
 hmm install
 
 haxelib install lime
@@ -30,5 +30,4 @@ haxelib install polymod
 
 haxelib git funkin.vis https://github.com/FunkinCrew/funkVis
 
-lime rebuild windows
 pause
