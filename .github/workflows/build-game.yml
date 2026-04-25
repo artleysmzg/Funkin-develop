@@ -1,46 +1,41 @@
-name: Build Windows Debug
+name: Build Windows
 
 on:
   push:
+    branches: [main]
   workflow_dispatch:
 
 jobs:
-  build-windows:
+  buildWindows:
     runs-on: windows-latest
-
-    defaults:
-      run:
-        shell: bash
-
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Haxe + Haxelib
+        uses: krdlab/setup-haxe@v1
         with:
-          submodules: recursive
+          haxe-version: 4.3.2
 
-      - name: Setup Haxe
-        uses: ./.github/actions/setup-haxe
-        
-      - name: haxelib
+      - name: Cache Haxelib
+        uses: actions/cache@v4
+        with:
+          path: |
+            export
+            C:\haxelib
+            C:\Users\runneradmin\.haxelib
+          key: ${{ runner.os }}-haxelib-${{ hashFiles('**/.github/workflows/*.yml') }}
+          restore-keys: |
+            ${{ runner.os }}-haxelib-
+
+      - name: Install libs and build the game
+        shell: cmd
         run: |
-          rm -rf D:\a\_temp/hxcpp_cache
-          haxelib fixrepo --global
-          haxelib remove hxcpp
-          haxelib remove haxelib
-          haxelib remove crypto
-          
-          haxelib install hxcpp
-          haxelib install haxelib
-          haxelib install crypto
-          
-          haxelib list
+          haxelib setup C:\haxelib
+          build/windows.bat
 
-      - name: Build Windows
-        run: |
-          haxelib run lime build windows -release
-
-      - name: Upload build artifact
+      - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: windows-debug-build
-          path: export/debug/windows/bin/
+          name: Windows-Build
+          path: export/release/windows/bin
