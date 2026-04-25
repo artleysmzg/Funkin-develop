@@ -39,7 +39,9 @@ jobs:
           haxelib --global run hmm setup
           haxelib run hmm install
 
-          haxelib install hxp
+          haxelib install hxp 1.3.0
+          haxelib set lime git
+          haxelib set openfl git
           
           haxelib run lime setup
 
