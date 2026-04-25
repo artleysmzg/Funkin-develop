@@ -32,7 +32,6 @@ jobs:
             ${{ runner.os }}-haxelib-
 
       - name: Install libs
-        shell: cmd
         run: |
           haxelib setup C:\haxelib
           
@@ -45,8 +44,8 @@ jobs:
           haxelib run lime setup
 
       - name: Build 
-        shell: cmd
         run: |
+          echo $env:HAXEPATH
           haxelib run lime build windows
 
       - name: Upload Artifacts
