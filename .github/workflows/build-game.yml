@@ -32,20 +32,24 @@ jobs:
             ${{ runner.os }}-haxelib-
 
       - name: Install libs
+        env:
+          HAXEPATH: C:\hostedtoolcache\windows\haxe\4.3.6\x64
         run: |
           haxelib setup C:\haxelib
           
           git submodule update --init --recursive
-
           haxelib --global install hmm
           haxelib --global run hmm setup
-          hmm install
+          haxelib run hmm install
           
           haxelib run lime setup
 
       - name: Build 
+        env:
+          HAXEPATH: C:\hostedtoolcache\windows\haxe\4.3.6\x64
         run: |
           echo $env:HAXEPATH
+          haxelib list
           haxelib run lime build windows
 
       - name: Upload Artifacts
