@@ -16,6 +16,9 @@ jobs:
         uses: krdlab/setup-haxe@v1
         with:
           haxe-version: 4.3.6
+          
+      - name: Set HAXEPATH
+        run: echo "HAXEPATH=$(dirname $(which haxe))" >> $GITHUB_ENV
 
       - name: Cache Haxelib
         uses: actions/cache@v4
@@ -35,9 +38,9 @@ jobs:
           
           git submodule update --init --recursive
 
-          haxelib install hmm
-          haxelib run hmm setup
-          haxelib hmm install
+          haxelib --global install hmm
+          haxelib --global run hmm setup
+          hmm install
           
           haxelib run lime setup
 
