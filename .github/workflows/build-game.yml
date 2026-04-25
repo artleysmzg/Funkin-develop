@@ -16,9 +16,6 @@ jobs:
         uses: krdlab/setup-haxe@v1
         with:
           haxe-version: 4.3.6
-          
-      - name: Set HAXEPATH
-        run: echo "HAXEPATH=C:\hostedtoolcache\windows\haxe\4.3.6\x64" >> $GITHUB_ENV
 
       - name: Cache Haxelib
         uses: actions/cache@v4
@@ -41,6 +38,8 @@ jobs:
           haxelib --global install hmm
           haxelib --global run hmm setup
           haxelib run hmm install
+
+          haxelib install hxp
           
           haxelib run lime setup
 
