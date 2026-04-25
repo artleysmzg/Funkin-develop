@@ -50,7 +50,7 @@ jobs:
           haxelib set openfl git
 
           haxelib run lime setup
-          haxelib run lime rebuild windows
+          haxelib run lime rebuild cpp
           
       - name: Build 
         env:
