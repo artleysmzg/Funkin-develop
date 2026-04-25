@@ -35,11 +35,17 @@ jobs:
           haxelib setup C:\haxelib
           
           git submodule update --init --recursive
+          
           haxelib --global install hmm
           haxelib --global run hmm setup
           haxelib run hmm install
 
           haxelib install hxp 1.3.0
+          
+          haxelib remove lime
+          haxelib remove openfl
+          haxelib git lime https://github.com/FunkinCrew/lime
+          haxelib git openfl https://github.com/FunkinCrew/openfl
           haxelib set lime git
           haxelib set openfl git
           
